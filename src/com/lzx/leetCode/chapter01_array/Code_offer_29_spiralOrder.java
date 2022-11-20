@@ -1,4 +1,4 @@
-package com.lzx.leetCode.array;
+package com.lzx.leetCode.chapter01_array;
 
 import org.junit.Test;
 
