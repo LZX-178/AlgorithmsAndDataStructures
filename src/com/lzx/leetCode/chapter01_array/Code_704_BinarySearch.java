@@ -10,6 +10,9 @@ package com.lzx.leetCode.chapter01_array;
  */
 public class Code_704_BinarySearch {
     public int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0){
+            return -1;
+        }
         return 0;
     }
 }
