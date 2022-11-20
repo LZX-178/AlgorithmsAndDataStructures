@@ -1,5 +1,7 @@
 package com.lzx.leetCode.chapter01_array;
 
+import org.junit.Test;
+
 /**
  * @author LZX
  * @code @create 2022-11-20 17:53:47
@@ -13,6 +15,29 @@ public class Code_704_BinarySearch {
         if (nums == null || nums.length == 0){
             return -1;
         }
-        return 0;
+        return search(nums, target, 0, nums.length-1);
+    }
+
+    public int search(int[] nums, int target, int start, int end){
+        if (end <= start){
+            return nums[start] == target ? start : -1;
+        }
+        int mid = start + ((end-start)>>2) ;
+        if (nums[mid] == target){
+            return mid;
+        }else if (nums[mid] > target){
+            return search(nums, target, start, mid-1);
+        }else {
+            // 由于 mid 永远 "更靠近" start,
+            return search(nums, target, mid+1, end);
+        }
+    }
+
+    @Test
+    public void test_search() {
+        int[] arr = {-1,0,3,5,9,12};
+        int target = 9;
+        int ans = search(arr, 9);
+        System.out.println("ans = " + ans);
     }
 }
