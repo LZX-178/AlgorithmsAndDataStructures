@@ -18,6 +18,8 @@ public class Code_704_BinarySearch {
         return search(nums, target, 0, nums.length-1);
     }
 
+    // 由于 mid 永远 "更靠近" start, 所以其向左移动时不会越界, 向右移动才可能越界
+    // 即 start 永远不越界
     public int search(int[] nums, int target, int start, int end){
         if (end <= start){
             return nums[start] == target ? start : -1;
@@ -28,7 +30,6 @@ public class Code_704_BinarySearch {
         }else if (nums[mid] > target){
             return search(nums, target, start, mid-1);
         }else {
-            // 由于 mid 永远 "更靠近" start,
             return search(nums, target, mid+1, end);
         }
     }
@@ -37,7 +38,7 @@ public class Code_704_BinarySearch {
     public void test_search() {
         int[] arr = {-1,0,3,5,9,12};
         int target = 9;
-        int ans = search(arr, 9);
+        int ans = search(arr, target);
         System.out.println("ans = " + ans);
     }
 }
