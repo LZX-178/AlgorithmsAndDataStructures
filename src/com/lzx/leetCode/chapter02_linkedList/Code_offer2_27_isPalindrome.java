@@ -9,7 +9,7 @@ package com.lzx.leetCode.chapter02_linkedList;
  *
  * 如果一个链表是回文，那么链表节点序列从前往后看和从后往前看是相同的。
  */
-public class Code_offer2_027_isPalindrome {
+public class Code_offer2_27_isPalindrome {
 
 
     public static class ListNode {

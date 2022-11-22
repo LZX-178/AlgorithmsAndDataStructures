@@ -10,7 +10,7 @@ package com.lzx.leetCode.chapter02_linkedList;
  * 你不需要保留每个分区中各节点的初始相对位置。
  *
  */
-public class Code_ms_02_04_partitionLinkedList {
+public class Code_ms_2_4_partitionLinkedList {
     private static class ListNode {
         int val;
         ListNode next;

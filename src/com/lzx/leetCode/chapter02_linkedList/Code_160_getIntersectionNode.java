@@ -7,7 +7,7 @@ package com.lzx.leetCode.chapter02_linkedList;
  * 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null
  * 题目数据 保证 整个链式结构中不存在环
  */
-public class Code_0160_getIntersectionNode {
+public class Code_160_getIntersectionNode {
     private static class ListNode {
         int val;
         ListNode next;

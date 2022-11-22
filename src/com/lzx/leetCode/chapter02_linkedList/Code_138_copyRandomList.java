@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * 构造这个链表的 深拷贝
  */
-public class Code_0138_copyRandomList {
+public class Code_138_copyRandomList {
     private static class Node {
         int val;
         Node next;
