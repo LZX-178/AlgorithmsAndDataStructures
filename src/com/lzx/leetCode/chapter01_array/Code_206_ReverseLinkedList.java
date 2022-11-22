@@ -7,7 +7,7 @@ package com.lzx.leetCode.chapter01_array;
  * 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
  */
 public class Code_206_ReverseLinkedList {
-    public class ListNode {
+    private static class ListNode {
         int val;
         ListNode next;
 
