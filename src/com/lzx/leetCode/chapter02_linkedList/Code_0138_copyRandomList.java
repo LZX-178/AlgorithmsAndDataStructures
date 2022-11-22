@@ -1,4 +1,4 @@
-package com.lzx.leetCode.linkedList;
+package com.lzx.leetCode.chapter02_linkedList;
 
 import java.util.HashMap;
 import java.util.Map;
