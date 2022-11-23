@@ -62,4 +62,19 @@ public class Code_ms_2_7_getIntersectionNode {
 
         return tempA;
     }
+
+    // 双指针
+    //      pA 遍历完 A 后再遍历 B
+    //      pB 遍历完 B 后再遍历 A
+    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode pA = headA, pB = headB;
+        while (pA != pB) {
+            pA = pA == null ? headB : pA.next;
+            pB = pB == null ? headA : pB.next;
+        }
+        return pA;
+    }
 }
