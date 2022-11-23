@@ -1,4 +1,4 @@
-package com.lzx.leetCode.chapter01_array;
+package com.lzx.leetCode.chapter02_linkedList;
 
 import java.util.jar.JarEntry;
 
