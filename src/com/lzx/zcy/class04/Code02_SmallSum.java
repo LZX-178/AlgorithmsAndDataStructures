@@ -9,6 +9,9 @@ package com.lzx.zcy.class04;
  * 例 : [1,3,4,2,5]
  * 小和为 : () + (1) +(1 + 3) +(1) +(1 + 3 + 4 + 2) = 16
  *
+ *
+ *
+ *
  * 等价为 :
  *      设 smallSum = 0;
  *      遍历数组, 对每一个元素 array[i],
@@ -44,9 +47,15 @@ public class Code02_SmallSum {
         int smallSum = 0;
         while (i <= m && j <= r){
             if (arr[i] < arr[j]){
+                // 此时, arr[i] 为 未归并的数中最小的, 需要计算 arr[i] 右边元素的个数
+                // 又考虑到 arr[i] 对左数组小和的影响已经计算过了
+                // 所以 小和应该累加上 arr[i] * 右数组的length
                 smallSum += arr[i] * (r-j+1);
                 temp[t++] = arr[i++];
             }else {
+                // 此时, arr[j] 为 未归并的数中最小的, 需要计算 arr[j] 右边元素的个数
+                // 但是 arr[j] 为右数组的第一个, arr[j] 对右数组小和的影响已经计算过了
+                // 所以 小和应该不累加
                 temp[t++] = arr[j++];
             }
         }
