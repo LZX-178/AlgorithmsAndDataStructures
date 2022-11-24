@@ -18,12 +18,17 @@ public class Code04_BSExist {
         int mid;
 
         while (L < R){
+            // mid 总是 "更靠近" L
             mid = L + ((R - L) >> 1);
             if (sortedArr[mid] == num){
                 return true;
             }else if (sortedArr[mid] > num){
+                // 更新后
+                // R 可能越界, L 不变
                 R = mid - 1;
             }else{
+                // 更新后
+                // 由于 mid 不可能和 R 重合, L 总是 <= R , 不会越界
                 L = mid + 1;
             }
         }
