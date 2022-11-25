@@ -38,7 +38,9 @@ public class Code_offer_051_reversePairs {
             return 0;
         }
         int mid = start + ((end - start)>>1);
-        return reversePairs(nums, start, mid) + reversePairs(nums, mid+1, end) + merge(nums, start, mid, end);
+        return  reversePairs(nums, start, mid) +
+                reversePairs(nums, mid+1, end) +
+                merge(nums, start, mid, end);
     }
 
     private int merge(int[] nums, int start, int mid, int end) {
