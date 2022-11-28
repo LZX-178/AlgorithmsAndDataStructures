@@ -1,6 +1,7 @@
 package com.lzx.zcy.class05;
 
-import com.lzx.utils.*;
+import com.lzx.utils.ArrayUtils;
+import com.lzx.utils.NumberUtils;
 
 /**
  * @author LZX
@@ -10,7 +11,7 @@ public class Code03_QuickSort {
     // 荷兰国旗问题
     // 在数组的 [l, r] 范围上以 arr[r] 为标准进行划分, 划分为 小于区域, 等于区域, 大于区域,
     // 返回值为 等于区域 的左右边界
-    // 默认 l 和 r 的值合法, 且 r > l
+    // 默认 l 和 r 的值合法, 且 l < r
     public int[] netherlandsFlag(int[] arr, int l, int r){
 
         int less = l-1;
@@ -35,13 +36,14 @@ public class Code03_QuickSort {
         if (arr == null || arr.length < 2){
             return;
         }
-
         quickSort(arr, 0, arr.length-1);
     }
     private void quickSort(int[] arr, int l, int r) {
         if (l >= r){
             return;
         }
+        // 如果不做随机交换的话
+        // 最坏时间复杂度是 O( n * n )
         int randomIndex = NumberUtils.getRandomInt(l, r);
         ArrayUtils.swap(arr, r, randomIndex);
         int[] res = netherlandsFlag(arr, l, r);

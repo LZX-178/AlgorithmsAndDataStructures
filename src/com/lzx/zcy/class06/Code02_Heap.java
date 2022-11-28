@@ -3,6 +3,11 @@ package com.lzx.zcy.class06;
 /**
  * @author LZX
  * @code @create 2022-09-11 13:08:36
+ * 堆结构
+ *      当前结点为 i
+ *      左节点 2*i + 1
+ *      右节点 2*i + 2
+ *      父节点 (i-1)/2 ---- 这里 i 可以为 0, 因为 -1/2 = 0
  */
 public class Code02_Heap {
     public static class MyMaxHeap{
