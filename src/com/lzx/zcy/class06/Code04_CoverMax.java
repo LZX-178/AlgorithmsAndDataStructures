@@ -3,6 +3,8 @@ package com.lzx.zcy.class06;
 import com.lzx.utils.NumberUtils;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -103,7 +105,27 @@ public class Code04_CoverMax {
         return ans;
     }
 
+    // 方法3 :
+    //      考察 方法2, 题目只关心一个端点的入度是否增加, 因为题目需要我们统计叠加区域的最大值, 只有入度增加了, 叠加区域才会增加
+    //      即, 只需要遍历线段的开始端点, 对结束端点可以一次性处理
+    //      先 按开始端点 对线段排序, 按顺序遍历所有 开始端点, 维护一个小根堆, 存放当前区域有哪些线段覆盖了(只存结束端点即可)
+    public int maxCover3(int[][] lines){
+        Arrays.sort(lines, Comparator.comparingInt(a -> a[0]));
 
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+
+        int ans = 0;
+        for (int[] line : lines) {
+            while (!heap.isEmpty() && heap.peek() <= line[0]){
+                heap.poll();
+            }
+            heap.add(line[1]);
+
+            ans = Math.max(ans, heap.size());
+        }
+
+        return ans;
+    }
 
     @Test
     public void test_1() {
@@ -131,10 +153,12 @@ public class Code04_CoverMax {
             int ans0 = maxCover0(lines);
             int ans1 = maxCover1(lines);
             int ans2 = maxCover2(lines);
-            if (ans0 != ans1 || ans1 != ans2){
+            int ans3 = maxCover3(lines);
+            if (ans0 != ans1 || ans1 != ans2 || ans2 != ans3){
                 System.out.println("ans0 = " + ans0);
                 System.out.println("ans1 = " + ans1);
                 System.out.println("ans2 = " + ans2);
+                System.out.println("ans3 = " + ans3);
                 throw new RuntimeException("error");
             }
         }
