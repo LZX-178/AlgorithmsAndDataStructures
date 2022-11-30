@@ -13,7 +13,7 @@ public class Code01_LinkedListMid {
 
     @Test
     public void test_LinkedListMid() {
-        Node test = null;
+        Node test;
         test = new Node(0);
         test.next = new Node(1);
         test.next.next = new Node(2);
@@ -24,8 +24,8 @@ public class Code01_LinkedListMid {
         test.next.next.next.next.next.next.next = new Node(7);
         test.next.next.next.next.next.next.next.next = new Node(8);
 
-        Node ans1 = null;
-        Node ans2 = null;
+        Node ans1;
+        Node ans2;
 
         System.out.println("midOrUpMidNode");
         ans1 = midOrUpMidNode(test);
@@ -70,9 +70,11 @@ public class Code01_LinkedListMid {
         Node mid = head;
         Node end = head.next;
 
+        // 当前长度为 偶
         while (end.next != null){
             end = end.next;
             mid = mid.next;
+            // 当前长度为 奇
             if (end.next == null){
                 break;
             }
@@ -90,9 +92,11 @@ public class Code01_LinkedListMid {
         Node mid = head;
         Node end = head;
 
+        // 当前长度为 奇
         while (end.next != null){
             end = end.next;
             mid = mid.next;
+            // 当前长度为 偶
             if (end.next == null){
                 break;
             }

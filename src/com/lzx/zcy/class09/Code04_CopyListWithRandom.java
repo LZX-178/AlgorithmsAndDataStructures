@@ -25,8 +25,8 @@ public class Code04_CopyListWithRandom {
         }
     }
 
-    // 方法一 : 使用 map
-    public static Node copyRandomList1(Node head){
+    // 方法1 : 使用 map
+    public Node copyRandomList1(Node head){
         if (head == null){
             return null;
         }
@@ -50,8 +50,8 @@ public class Code04_CopyListWithRandom {
         return map.get(head);
     }
 
-    // 方法二 : 把克隆的节点插入到原节点的后面, 克隆 random 后再分离两条链表
-    public static Node copyRandomList2(Node head){
+    // 方法2 : 把克隆的节点插入到原节点 next 的后面, 克隆 random 后再分离两条链表
+    public Node copyRandomList2(Node head){
         if (head == null){
             return null;
         }
@@ -85,5 +85,41 @@ public class Code04_CopyListWithRandom {
         return result;
     }
 
+    // 方法3 : 把克隆的节点插入到原节点 random 的后面, 克隆 random 后再分离两条链表
+    public Node copyRandomList3(Node head){
+        if (head == null){
+            return null;
+        }
+
+        // 第一次遍历, 新建克隆的节点插入到原节点 random 的后面
+        Node temp = head, t;
+        while (temp != null){
+            Node newNode = new Node(temp.val);
+            newNode.next = temp.random;
+            temp.random = newNode;
+
+            temp = temp.next;
+        }
+        Node newHead = head.random;
+
+        // 第二次遍历, 给克隆的节点 的 random 赋值
+        temp = head;
+        while (temp != null){
+            temp.random.random = temp.random.next == null ? null : temp.random.next.random;
+            temp = temp.next;
+        }
+
+        // 第三次遍历, 复原原链表的 random, 给克隆的节点 的 next 赋值
+        temp = head;
+        while (temp != null){
+            t = temp.random;
+            temp.random = t.next;
+            // 由于是从前往后遍历链表的, temp.next.random 一定还指向该节点的克隆, 一定还没被还原
+            t.next = temp.next == null ? null : temp.next.random;
+            temp = temp.next;
+        }
+
+        return newHead;
+    }
 
 }
