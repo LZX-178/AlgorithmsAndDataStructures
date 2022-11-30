@@ -24,6 +24,7 @@ public class Code04_RadixSort_test {
             System.out.println("countSort  = " + Arrays.toString(array1));
             Arrays.sort(array2);
             System.out.println("comparator = " + Arrays.toString(array2));
+            System.out.println();
 
             if (!ArrayUtils.IntArrayIsEqual(array1, array2)){
                 throw new RuntimeException("error");

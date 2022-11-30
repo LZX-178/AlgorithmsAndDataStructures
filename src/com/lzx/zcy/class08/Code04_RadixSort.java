@@ -21,14 +21,14 @@ public class Code04_RadixSort {
         int maxBit = getMaxBit(arr);
 
         // 遍历每一位, 在稳定的情况下, 按该位进行排序
-        for (int i = 1; i <= maxBit; i++) {
+        for (int i = 1, radix = 1; i <= maxBit; i++) {
 
             // 1 获取 count 数组, count数组记录的含义 :
             // 按该位进行排序后, temp 数组会按该位分成 10 段,
             // count数组 则记录这 10 段末尾的下标 (实际是 下标+1, 即前n段一共有多少个数)
             int[] count = new int[10];
             for (int k : arr) {
-                digit = getDigit(k, i);
+                digit = (k/radix) % 10;
                 count[digit]++;
             }
             for (int j = 1; j < count.length; j++) {
@@ -37,19 +37,19 @@ public class Code04_RadixSort {
 
             // 2 逆序遍历原数组
             // 按照 count数组 的指引, 将元素放入 temp 中对应的段
-            // 注意 : 放入一个元素后, 段的末尾要递减
+            // 注意 : 段的末尾要递减
             for (int j = arr.length - 1; j >= 0; j--) {
-                digit = getDigit(arr[j], i);
-                temp[count[digit]-1] = arr[j];
-                count[digit]--;
+                digit = (arr[j]/radix) % 10;
+                temp[--count[digit]] = arr[j];
             }
 
-//            // 3 拷贝 temp 至 原数组
-//            System.arraycopy(temp, 0, arr, 0, arr.length);
             // 3 交换两个数组
             int[] t = temp;
             temp = arr;
             arr = t;
+
+            // 4 基数诚实
+            radix*=10;
         }
         // 注意, 最后的 arr 必须指向原来的内存!!!,
         // 如果经过了偶数次交换
@@ -75,12 +75,6 @@ public class Code04_RadixSort {
         }
 
         return maxBit;
-    }
-
-    // 获得一个数的第几位是几, (个位为第一位)
-    public int getDigit(int num, int d){
-        int pow = (int) Math.pow(10, d - 1);
-        return  (num / pow) % 10;
     }
 
 }
