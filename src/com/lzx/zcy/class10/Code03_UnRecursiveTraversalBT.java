@@ -85,7 +85,7 @@ public class Code03_UnRecursiveTraversalBT {
         postorderTraversal4(head);
     }
 
-    // 非递归 递归序遍历二叉树 1
+    // 非递归 递归序 遍历二叉树 1
     // 前中后序遍历的通解， 由此方法可得 前中后序的非递归遍历
     // 使用一个栈来模拟方法栈
     // 维护一个 map 来确定是第几次访问该节点
@@ -95,7 +95,7 @@ public class Code03_UnRecursiveTraversalBT {
         }
         // 模拟方法栈
         Stack<Node> stack = new Stack<>();
-        // 记录是第几次访问某个节点
+        // 记录 已经访问过某个节点几次了
         HashMap<Node, Integer> accessCount = new HashMap<>();
 
         stack.push(node);
@@ -130,10 +130,14 @@ public class Code03_UnRecursiveTraversalBT {
         }
     }
 
-    // 非递归 递归序遍历二叉树 2
+    // 非递归 递归序 遍历二叉树 2
     // 前中后序遍历的通解， 由此方法可得 前中后序的非递归遍历
     // 使用一个栈来模拟方法栈
     // 使用 last 指针来指向 上一个第三次访问的结点 以确定当前结点是第几次访问
+    // 根据下一步前进的方向, 划分三个分支, (不能向 null 前进)
+    //      向上, 第三次访问当前结点
+    //      向左, 第一次访问左节点
+    //      向右, 第二次访问当前结点, 第一次访问右节点
     public void recursiveTraversal2(Node node){
         if (node == null) {
             return;
@@ -144,31 +148,31 @@ public class Code03_UnRecursiveTraversalBT {
         stack.push(node);
         System.out.println("node = " + node + ", count = 1");
         // 永远指向上一个第三次访问的结点
-        Node last = null;
+        // 但初始化不能为 null,
+        // 得是一个 保证 last != node.left 和 last != node.right 为真的值 (简化 while 里的 if条件)
+        Node last = node;
 
         while (!stack.isEmpty()){
             node = stack.peek();
 
-            if (node.left != null && last != node.left && last != node.right){
+            // 只有 向上 向左 向右 三种走法
+            if (node.left != null && last != node.left && last != node.right){      // 向左
                 // 如果左节点非空
-                // 且 上一次第三次访问节点 既不是 左节点 也不是 右节点
+                // 且 上一次第三次访问节点 既不是 左节点 也不是 右节点 (可以分 右节点是否为空进行讨论, 这种写法均是正确的)
                 // 说明 左右节点都没有访问过
                 stack.push(node.left);
                 System.out.println("node = " + node.left + ", count = 1");
-            }else if (node.right != null && last != node.right){
-                // 如果 左节点已经访问过了 或 左节点为空
-                // 如果 右节点非空 且 上一次第三次访问节点 不是 右节点
-                // 说明 应该访问右节点了
+            }else if (node.right != null && last != node.right){                    // 向右
+                // 如果 右节点非空, 那么可能向右, 也可能向上 (向左已经排除了)
+                //      如果 last 不是 右节点, 说明应该向右
                 System.out.println("node = " + node + ", count = 2");
                 stack.push(node.right);
                 System.out.println("node = " + node.right + ", count = 1");
-            }else {
-                // 左右节点访问完成
-                // 第三次访问当前结点
+            }else {                                                                 // 向上
                 last = stack.pop();
                 if (node.right == null){
-                    // 如果右节点为空, 不会进入第二个循环分支
-                    // 补上第二次访问
+                    // 如果右节点为空, 当前结点任何时候不会向右走
+                    // 所以补上第二次访问
                     System.out.println("node = " + last + ", count = 2");
                 }
                 System.out.println("node = " + last + ", count = 3");
@@ -178,8 +182,8 @@ public class Code03_UnRecursiveTraversalBT {
 
 
 
-    // 非递归 前序遍历二叉树 1
-    // 参考 非递归 递归序遍历二叉树 1
+    // 非递归 前序 遍历二叉树 1
+    // 参考 非递归 递归序 遍历二叉树 1
     public void preorderTraversal1(Node node){
 
         if (node == null) {
@@ -222,8 +226,8 @@ public class Code03_UnRecursiveTraversalBT {
         }
 
     }
-    // 非递归 中序遍历二叉树 1
-    // 参考 非递归 递归序遍历二叉树 1
+    // 非递归 中序 遍历二叉树 1
+    // 参考 非递归 递归序 遍历二叉树 1
     public void inorderTraversal1(Node node){
 
         if (node == null) {
@@ -266,8 +270,8 @@ public class Code03_UnRecursiveTraversalBT {
         }
 
     }
-    // 非递归 后序遍历二叉树 1
-    // 参考 非递归 递归序遍历二叉树 1
+    // 非递归 后序 遍历二叉树 1
+    // 参考 非递归 递归序 遍历二叉树 1
     public void postorderTraversal1(Node node){
 
         if (node == null) {
@@ -314,8 +318,8 @@ public class Code03_UnRecursiveTraversalBT {
 
 
 
-    // 非递归 前序遍历二叉树 2
-    // 参考 非递归 递归序遍历二叉树 2
+    // 非递归 前序 遍历二叉树 2
+    // 参考 非递归 递归序 遍历二叉树 2
     public void preorderTraversal2(Node node){
 
         if (node == null) {
@@ -361,8 +365,8 @@ public class Code03_UnRecursiveTraversalBT {
         }
 
     }
-    // 非递归 中序遍历二叉树 2
-    // 参考 非递归 递归序遍历二叉树 2
+    // 非递归 中序 遍历二叉树 2
+    // 参考 非递归 递归序 遍历二叉树 2
     public void inorderTraversal2(Node node){
 
         if (node == null) {
@@ -409,8 +413,8 @@ public class Code03_UnRecursiveTraversalBT {
 
 
     }
-    // 非递归 后序遍历二叉树 2
-    // 参考 非递归 递归序遍历二叉树 2
+    // 非递归 后序 遍历二叉树 2
+    // 参考 非递归 递归序 遍历二叉树 2
     public void postorderTraversal2(Node node){
 
         if (node == null) {
@@ -460,7 +464,7 @@ public class Code03_UnRecursiveTraversalBT {
 
 
 
-    // 非递归 前序遍历二叉树 3
+    // 非递归 前序 遍历二叉树 3
     // 参考 非递归 递归序遍历二叉树
     // *****但是是面向过程的, 特别麻烦*****
     // 同样使用 "方法栈的思想", 栈里存的是 已经访问过一次的节点(第一次访问时打印)
@@ -494,7 +498,7 @@ public class Code03_UnRecursiveTraversalBT {
             node = node.right;
         }
     }
-    // 非递归 中序遍历二叉树 3
+    // 非递归 中序 遍历二叉树 3
     // 参考 非递归 递归序遍历二叉树
     // *****但是是面向过程的, 特别麻烦*****
     // 使用 "方法栈的思想", 栈里存的是 已经访问过一次的节点
@@ -531,7 +535,7 @@ public class Code03_UnRecursiveTraversalBT {
             node = node.right;
         }
     }
-    // 非递归 后序遍历二叉树 3
+    // 非递归 后序 遍历二叉树 3
     // 参考 非递归 递归序遍历二叉树
     // *****但是是面向过程的, 特别麻烦*****
     // 使用 "方法栈的思想", 栈里存的是 已经访问过一次的节点
@@ -591,7 +595,7 @@ public class Code03_UnRecursiveTraversalBT {
 
 
 
-    // 非递归 前序遍历二叉树 4
+    // 非递归 前序 遍历二叉树 4
     // 不是模拟方法栈
     // 栈里存的是待访问的树的根节点
     // 每次循环弹出一个元素并访问
@@ -617,7 +621,7 @@ public class Code03_UnRecursiveTraversalBT {
             }
         }
     }
-    // 非递归 后序遍历二叉树 4
+    // 非递归 后序 遍历二叉树 4
     // 不是模拟方法栈
     // 栈里存的是 待访问的树的根节点
     // 每次循环弹出一个元素并压入一个新的栈
