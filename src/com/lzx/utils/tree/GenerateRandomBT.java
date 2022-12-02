@@ -8,16 +8,16 @@ import java.lang.reflect.Constructor;
  * @author LZX
  * @code @create 2022-10-23 10:07:55
  */
-public class RandomBTUtils {
-    private BTNode root;
-    private int minNumOfNodes;
-    private int maxNumOfNodes;
-    private int minValue;
-    private int maxValue;
-    private int maxLevel;
+public class GenerateRandomBT {
+    private final BTNode root;
+    private final int minNumOfNodes;
+    private final int maxNumOfNodes;
+    private final int minValue;
+    private final int maxValue;
+    private final int maxLevel;
     private int numOfNodes = 1;
 
-    public RandomBTUtils(BTNode root, int minNumOfNodes, int maxNumOfNodes, int minValue, int maxValue, int maxLevel) {
+    public GenerateRandomBT(BTNode root, int minNumOfNodes, int maxNumOfNodes, int minValue, int maxValue, int maxLevel) {
         this.root = root;
         this.minNumOfNodes = minNumOfNodes;
         this.maxNumOfNodes = maxNumOfNodes;
@@ -26,22 +26,21 @@ public class RandomBTUtils {
         this.maxLevel = maxLevel;
     }
 
-    public BTNode generateRandomBT(){
+    public void generateRandomBT(){
         if (root == null || maxNumOfNodes < 1){
-            return root;
+            return;
         }
         if (root.getLeft() != null || root.getRight() != null){
             System.out.println("root is illegal");
-            return root;
+            return;
         }
         if (minNumOfNodes > Math.pow(2, maxLevel)-1){
             System.out.println("root is illegal, minNumOfNodes too big");
-            return root;
+            return;
         }
         while (numOfNodes < minNumOfNodes){
             generateRandomBT(root, 1);
         }
-        return root;
     }
     private void generateRandomBT(BTNode root, int level) {
         if (numOfNodes >= maxNumOfNodes || level >= maxLevel){

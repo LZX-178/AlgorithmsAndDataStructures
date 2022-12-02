@@ -170,7 +170,7 @@ public class PrintBinaryTreeTest {
     public void test_printTree6() {
         Node head = new Node(1);
 
-        RandomBTUtils treeUtils = new RandomBTUtils(head, 5, 63, 1, 99, 6);
+        GenerateRandomBT treeUtils = new GenerateRandomBT(head, 5, 63, 1, 99, 6);
         treeUtils.generateRandomBT();
 
         PrintBinaryTree printBinaryTree = new PrintBinaryTree(head);

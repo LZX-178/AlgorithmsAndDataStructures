@@ -17,7 +17,7 @@ import java.util.List;
  *      说明 :
  *          只适合打印 "密集" 的二叉树, 即宽度大而高度小, 二叉树的高度最好不超过 6 层
  * 待改进 :
- *      二叉树最右边的结点 "过右" 时, 左边打印太多的空格
+ *      二叉树最左边的结点 "过右" 时, 左边打印太多的空格
  */
 public class PrintBinaryTree{
     // 数的根节点
@@ -143,11 +143,11 @@ public class PrintBinaryTree{
                     Integer id = pair.getValue();
                     System.out.print("node = ");
                     if (node.getLeft() != null){
-                        System.out.print(node.getLeft().getValue() + " <-");
+                        System.out.print(node.getLeft().getValue() + " <- ");
                     }
                     System.out.print(node.getValue());
                     if (node.getRight() != null) {
-                        System.out.print("-> " + node.getRight().getValue());
+                        System.out.print(" -> " + node.getRight().getValue());
                     }
                     System.out.println("  | id = " + id);
                 }
@@ -220,7 +220,7 @@ public class PrintBinaryTree{
         }
     }
 
-    // 获取二叉树最左边的元素, 防止二叉树最右边的结点 "过右" 时, 左边打印太多的空格
+    // 获取二叉树最左边的元素, 防止二叉树最左边的结点 "过右" 时, 左边打印太多的空格
     private void getLeftmostNode(){
 
     }
