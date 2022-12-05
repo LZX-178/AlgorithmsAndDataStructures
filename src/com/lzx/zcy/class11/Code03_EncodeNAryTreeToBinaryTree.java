@@ -183,25 +183,24 @@ public class Code03_EncodeNAryTreeToBinaryTree {
         }
         Stack<UndirectedGraphNode> stack1 = new Stack<>();
         Stack<TreeNode> stack2 = new Stack<>();
-
-        HashMap<UndirectedGraphNode, Integer> map = new HashMap<>();
+        Stack<Integer> stack1Count = new Stack<>();
 
         TreeNode head = new TreeNode(root.label);
         stack1.push(root);
+        stack1Count.push(0);
         stack2.push(head);
 
         // 非递归 递归序遍历多叉树 + 非递归 先序遍历二叉树 (这里的先序指的是生成节点的时机, 当然得是第一次访问)
         while (!stack1.isEmpty()){
             UndirectedGraphNode node = stack1.peek();
+            Integer count = stack1Count.pop();
             TreeNode treeNode = stack2.peek();
-
-            Integer count = map.get(node);
-            count = count == null ? 0 : count;
 
             if (count < node.neighbors.size()) {
                 UndirectedGraphNode next = node.neighbors.get(count);
                 stack1.push(next);
-                map.put(node, count+1);
+                stack1Count.push(count+1);
+                stack1Count.push(0);
 
                 // 如果多叉树节点向下走, 则分成两种情况
                 if (count == 0){
@@ -250,41 +249,82 @@ public class Code03_EncodeNAryTreeToBinaryTree {
         stack1.push(root);
         stack2.push(head);
 
-        int num = 0;
-
-        while (!stack1.isEmpty() && !stack2.isEmpty()){
+        while (!stack1.isEmpty()){
             TreeNode node = stack1.peek();
-            UndirectedGraphNode graphNode = stack2.peek();
-
-            if (node.left != null || last != node.left || last != node.right){
+            if (node.left != null && last != node.left && last != node.right){
+                // 二叉树向左走
                 stack1.push(node.left);
                 UndirectedGraphNode temp = new UndirectedGraphNode(node.left.val);
-                graphNode.neighbors.add(temp);
+                stack2.peek().neighbors.add(temp);
                 stack2.push(temp);
-            }else if (node.right != null || last != node.right){
-                if (node.left == null){
-                    // 向右走, 且二叉树左节点为空
-                    // 说明多叉树节点应该退回父节点
-                    stack2.pop();
-                }
+            }else if (node.right != null && last != node.right){
                 // 二叉树向右走
+                // 多叉树节点应该退回父节点, 去遍历当前结点的兄弟
+                stack2.pop();
                 // 当前结点添加新的子节点
                 stack1.push(node.right);
                 UndirectedGraphNode temp = new UndirectedGraphNode(node.right.val);
-                graphNode.neighbors.add(temp);
+                stack2.peek().neighbors.add(temp);
                 stack2.push(temp);
             }else {
-                last = stack1.pop();
-                num++;
-                if (num == graphNode.neighbors.size()){
-                    num = 0;
+                // 二叉树向上走
+                if (node.right == null){
+                    // 如果右节点为空, 说明当前多叉树节点没有兄弟了
+                    // 需要去遍历其父节点的兄弟
                     stack2.pop();
                 }
+                last = stack1.pop();
             }
         }
-
         return head;
     }
+
+    /******************** 方法3 **********************/
+    // 左神解法
+    public TreeNode encode3(UndirectedGraphNode root){
+        if (root == null) {
+            return null;
+        }
+        TreeNode head = new TreeNode(root.label);
+        head.left = en(root.neighbors);
+        return head;
+    }
+    private TreeNode en(List<UndirectedGraphNode> children) {
+        TreeNode head = null;
+        TreeNode cur = null;
+        for (UndirectedGraphNode child : children) {
+            TreeNode tNode = new TreeNode(child.label);
+            if (head == null) {
+                head = tNode;
+            } else {
+                cur.right = tNode;
+            }
+            cur = tNode;
+            cur.left = en(child.neighbors);
+        }
+        return head;
+    }
+
+
+    public UndirectedGraphNode decode3(TreeNode root){
+        if (root == null) {
+            return null;
+        }
+        UndirectedGraphNode head = new UndirectedGraphNode(root.val);
+        head.neighbors = de(root.left);
+        return head;
+    }
+    public ArrayList<UndirectedGraphNode> de(TreeNode root) {
+        ArrayList<UndirectedGraphNode> children = new ArrayList<>();
+        while (root != null) {
+            UndirectedGraphNode cur = new UndirectedGraphNode(root.val);
+            cur.neighbors = de(root.left);
+            children.add(cur);
+            root = root.right;
+        }
+        return children;
+    }
+
 
     @Test
     public void test_encode() {
@@ -339,15 +379,14 @@ public class Code03_EncodeNAryTreeToBinaryTree {
         node3.neighbors.add(node9);
         node3.neighbors.add(node10);
 
-        TreeNode treeNode = encode2(node1);
+        TreeNode treeNode = encode3(node1);
         PrintBinaryTree printer = new PrintBinaryTree(treeNode);
-        printer.print();
+        printer.print(false);
 
-        UndirectedGraphNode node = decode2(treeNode);
+        UndirectedGraphNode node = decode3(treeNode);
 
-        TreeNode encode = encode(node);
-        printer.root = encode;
-        printer.print();
+        printer.root = encode(node);
+        printer.print(false);
 
     }
 }
