@@ -85,12 +85,12 @@ public class Code03_EncodeNAryTreeToBinaryTree {
         }
     }
 
+    /******************** 方法1 **********************/
     // N 叉数的子节点个数是无限的, 可以对应二叉树的高度是无限的, 对应策略如下 :
     //      一个二叉树节点对应一个多叉树节点
     //      二叉树节点的左节点 对应 多叉树节点的第一个子节点(无子节点则为空)
     //      二叉树节点的右节点 对应 多叉树节点的兄弟节点(无兄弟节点则为空)
     // 可以看出, 两颗树的先序遍历是一致的
-
 
     // 先序遍历编码
     public TreeNode encode(UndirectedGraphNode root) {
@@ -174,6 +174,8 @@ public class Code03_EncodeNAryTreeToBinaryTree {
     }
 
 
+    /******************** 方法2 **********************/
+    // 将 方法1 改为非递归的
     // 非递归 先序遍历编码
     public TreeNode encode2(UndirectedGraphNode root) {
         if (root == null){
@@ -195,6 +197,7 @@ public class Code03_EncodeNAryTreeToBinaryTree {
 
             Integer count = map.get(node);
             count = count == null ? 0 : count;
+
             if (count < node.neighbors.size()) {
                 UndirectedGraphNode next = node.neighbors.get(count);
                 stack1.push(next);
@@ -241,7 +244,7 @@ public class Code03_EncodeNAryTreeToBinaryTree {
         }
         Stack<TreeNode> stack1 = new Stack<>();
         Stack<UndirectedGraphNode> stack2 = new Stack<>();
-        HashMap<TreeNode, Integer> map = new HashMap<>();
+        TreeNode last = root;
 
         UndirectedGraphNode head = new UndirectedGraphNode(root.val);
         stack1.push(root);
@@ -253,32 +256,25 @@ public class Code03_EncodeNAryTreeToBinaryTree {
             TreeNode node = stack1.peek();
             UndirectedGraphNode graphNode = stack2.peek();
 
-
-            Integer count = map.get(node);
-            if (count == null){
-                map.put(node, 1);
+            if (node.left != null || last != node.left || last != node.right){
+                stack1.push(node.left);
+                UndirectedGraphNode temp = new UndirectedGraphNode(node.left.val);
+                graphNode.neighbors.add(temp);
+                stack2.push(temp);
+            }else if (node.right != null || last != node.right){
                 if (node.left == null){
-                    // 二叉树左节点为空, 需要向右走
+                    // 向右走, 且二叉树左节点为空
                     // 说明多叉树节点应该退回父节点
                     stack2.pop();
-                }else {
-                    stack1.push(node.left);
-                    UndirectedGraphNode temp = new UndirectedGraphNode(node.left.val);
-                    graphNode.neighbors.add(temp);
-                    stack2.push(temp);
                 }
-            }else if (count == 1){
-                map.put(node, 2);
-                if (node.right != null){
-                    // 二叉树向右走
-                    // 当前结点添加新的子节点
-                    stack1.push(node.right);
-                    UndirectedGraphNode temp = new UndirectedGraphNode(node.right.val);
-                    graphNode.neighbors.add(temp);
-                    stack2.push(temp);
-                }
+                // 二叉树向右走
+                // 当前结点添加新的子节点
+                stack1.push(node.right);
+                UndirectedGraphNode temp = new UndirectedGraphNode(node.right.val);
+                graphNode.neighbors.add(temp);
+                stack2.push(temp);
             }else {
-                stack1.pop();
+                last = stack1.pop();
                 num++;
                 if (num == graphNode.neighbors.size()){
                     num = 0;
