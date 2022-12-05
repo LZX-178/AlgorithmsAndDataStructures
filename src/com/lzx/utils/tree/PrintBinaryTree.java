@@ -17,7 +17,8 @@ import java.util.List;
  *      说明 :
  *          只适合打印 "密集" 的二叉树, 即宽度大而高度小, 二叉树的高度最好不超过 6 层
  * 待改进 :
- *      二叉树最左边的结点 "过右" 时, 左边打印太多的空格
+ *      getLeftmostNode()
+ *          二叉树最左边的结点 "过右" 时, 左边打印太多的空格
  */
 public class PrintBinaryTree{
     // 数的根节点

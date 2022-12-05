@@ -168,11 +168,16 @@ public class PrintBinaryTreeTest {
     }
     @Test
     public void test_printTree6() {
-        Node head = new Node(1);
+        // new 一个实现了 BTNode 接口的根节点
+        BTNode head = new Node(1);
 
-        GenerateRandomBT treeUtils = new GenerateRandomBT(head, 5, 63, 1, 99, 6);
+        // 使用 treeUtils.generateRandomBT() 方法 为生成的根节点随机建树
+        // 注意 : 要进行随机建树的话, 需要实现 BTNode 里的 set 方法, 只是打印树的话则不需要
+        GenerateRandomBT treeUtils = new GenerateRandomBT(head, 5, 30, 1, 9999, 6);
         treeUtils.generateRandomBT();
 
+        // 使用 printBinaryTree.print(true)方法 打印二叉树
+        // true 表示需要打印二叉树的详细信息 (id 指的是该节点在对应完全二叉树里的编号)
         PrintBinaryTree printBinaryTree = new PrintBinaryTree(head);
         printBinaryTree.print(true);
     }

@@ -12,6 +12,8 @@ import java.util.Stack;
  * 非递归遍历二叉树
  *
  * 非递归 前中后序遍历二叉树 3 的代码还有改进的空间!!!!! (想办法抽取成递归序遍历!!!)
+ *
+ * 另一种方式改进 非递归 递归序 遍历二叉树 1 : 用栈记录次数
  */
 public class Code03_UnRecursiveTraversalBT {
     private static class Node{

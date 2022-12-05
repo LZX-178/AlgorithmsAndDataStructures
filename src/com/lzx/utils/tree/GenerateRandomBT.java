@@ -7,6 +7,7 @@ import java.lang.reflect.Constructor;
 /**
  * @author LZX
  * @code @create 2022-10-23 10:07:55
+ * 传入二叉树的根节点, 进行随机建树
  */
 public class GenerateRandomBT {
     private final BTNode root;
