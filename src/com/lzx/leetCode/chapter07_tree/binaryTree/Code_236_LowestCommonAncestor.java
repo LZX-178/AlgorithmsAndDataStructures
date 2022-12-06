@@ -112,10 +112,12 @@ public class Code_236_LowestCommonAncestor {
         return false;
     }
 
+
     // 方法2 递归版本
-    // 对于 最近公共祖先节点
+    // 对于 最近公共祖先 节点, 只有以下两种情况
     //     1 是 p 或 q 其中一个
     //     2 左子树包含 q, 右子树包含 p, 或反之
+    // 对于其他的祖先节点, 只有一个子树是包含 p 或者 q 的
     private TreeNode ans;
     public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q){
         dfs(root, p, q);
