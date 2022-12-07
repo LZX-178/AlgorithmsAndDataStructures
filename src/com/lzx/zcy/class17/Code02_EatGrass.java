@@ -1,4 +1,4 @@
-package com.lzx.zcy.class12;
+package com.lzx.zcy.class17;
 
 import org.junit.Test;
 
@@ -38,7 +38,7 @@ public class Code02_EatGrass {
     // 先用暴力解寻找规律
     // 发现 : 在 2 以后每 5 个数一个循环
     // 可以根据数学归纳法证明 :
-    //      4的幂 一定是 以 1或6或4 结尾, 4的幂 模5 一定为 1或4
+    //      4的幂 一定是 以 1或6或4 结尾, 4的幂 模5 一定为 1 或 4
     public boolean cowWin2(int N){
         if (N < 3){
             return N != 2;
