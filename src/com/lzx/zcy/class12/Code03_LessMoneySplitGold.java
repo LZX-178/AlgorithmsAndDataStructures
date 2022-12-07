@@ -1,6 +1,12 @@
 package com.lzx.zcy.class12;
 
+import com.lzx.utils.NumberUtils;
+import org.hamcrest.core.Is;
 import org.junit.Test;
+
+import java.util.AbstractList;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 
 /**
  * @author LZX
@@ -83,8 +89,21 @@ public class Code03_LessMoneySplitGold {
         arr[i] = arr[i] ^ arr[j];
     }
 
-    // 方法2 : 暴力解
-
+    // 方法2 : 对数器
+    public int lessMoney2(int[] arr) {
+        PriorityQueue<Integer> pQ = new PriorityQueue<>();
+        for (int i = 0; i < arr.length; i++) {
+            pQ.add(arr[i]);
+        }
+        int sum = 0;
+        int cur = 0;
+        while (pQ.size() > 1) {
+            cur = pQ.poll() + pQ.poll();
+            sum += cur;
+            pQ.add(cur);
+        }
+        return sum;
+    }
 
 
     @Test
@@ -93,4 +112,27 @@ public class Code03_LessMoneySplitGold {
         int ans1 = lessMoney1(arr);
         System.out.println("ans1 = " + ans1);
     }
+
+    @Test
+    public void test_lessMoney2() {
+        for (int j = 0; j < 500000; j++) {
+
+            int[] arr1 = new int[NumberUtils.getRandomInt(5, 15)];
+            for (int i = 0; i < arr1.length; i++) {
+                arr1[i] = NumberUtils.getRandomInt(10, 100);
+            }
+            int[] arr2 = Arrays.copyOf(arr1, arr1.length);
+
+            int ans1 = lessMoney1(arr1);
+            int ans2 = lessMoney2(arr2);
+
+            if (ans1 != ans2){
+                System.out.println("ans1 = " + ans1);
+                System.out.println("ans2 = " + ans2);
+                throw new RuntimeException("error");
+            }
+        }
+        System.out.println("OK");
+    }
+
 }
