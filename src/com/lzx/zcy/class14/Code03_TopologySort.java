@@ -37,7 +37,7 @@ public class Code03_TopologySort {
                 if (newIn  == 0){
                     queue.add(next);
                 }
-                inMap.put(next, newIn );
+                inMap.put(next, newIn);
             }
         }
 
