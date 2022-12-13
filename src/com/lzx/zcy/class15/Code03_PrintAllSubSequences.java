@@ -9,7 +9,9 @@ import java.util.Set;
 
 public class Code03_PrintAllSubSequences {
 
+	// result11 为有重复的结果
 	public List<String> result11;
+	// result12 为无重复的结果
 	public Set<String> result12;
 
 	// 打印一个字串的所有公共子序列

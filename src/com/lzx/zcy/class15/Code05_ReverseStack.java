@@ -11,6 +11,8 @@ import java.util.Stack;
  * 不能申请额外的数据结构, 可以使用递归
  */
 public class Code05_ReverseStack {
+    // 方法1 : 不断将栈底元素上移至 顶部
+    // 缺点, 没有使用返回值
     public void reverseStack1(Stack<Integer> stack){
         for (int i = 1; i < stack.size(); i++) {
             reverseStack1(stack, i);
@@ -28,12 +30,14 @@ public class Code05_ReverseStack {
                 stack.push(num);
                 stack.push(temp);
             }else {
+                // 当 i 不为 1 时, 需要将一些元素弹出, 此时相当于 i 为 1
                 reverseStack1(stack, i-1);
                 stack.push(num);
             }
         }
     }
 
+    // 方法2 : 使用返回值, 每次抽取栈底元素出来
     public void reverseStack2(Stack<Integer> stack) {
         if (stack.isEmpty()) {
             return;
@@ -42,7 +46,7 @@ public class Code05_ReverseStack {
         reverseStack2(stack);
         stack.push(i);
     }
-    // 取出栈底元素并返回
+    // 取出栈底元素并返回, 要保证栈的合法性
     public int getLast(Stack<Integer> stack) {
         int result = stack.pop();
         if (stack.isEmpty()) {

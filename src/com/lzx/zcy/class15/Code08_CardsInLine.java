@@ -34,6 +34,7 @@ public class Code08_CardsInLine {
         if (start == end){
             return 0;
         }
+        // 因为总分不变, 后手越少, 则先手越多
         return Math.min(
                 win1First(arr, start+1, end),
                 win1First(arr, start, end-1));

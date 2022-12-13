@@ -29,6 +29,7 @@ public class Code04_PrintAllPermutations {
 			result2.add(new String(chars));
 			return;
 		}
+		// index 位置的字符不变, 或者和后面的字符交换一次
 		permutation1(chars, index+1);
 		for (int i = index + 1; i < chars.length; i++) {
 			swap(chars, i, index);
@@ -45,6 +46,7 @@ public class Code04_PrintAllPermutations {
 
 
 
+	// 不用 set 实现去重
 	// result3 为不能重复的解
 	public void permutation2(String s) {
 		if (s.length() == 0){
@@ -59,6 +61,7 @@ public class Code04_PrintAllPermutations {
 			result3.add(new String(chars));
 			return;
 		}
+		// 规定字符串只有 26 个字母
 		boolean[] visited = new boolean[26];
 		permutation2(chars, index+1);
 		visited[chars[index]-'a'] = true;
