@@ -34,6 +34,7 @@ public class Code03_StickersToSpellWord {
         }
         return result;
     }
+    // rest 为 target 中 所有元素之和
     public int minStickers1(String[] stickers, int[] target, int rest) {
         if (rest == 0) {
             return 0;
