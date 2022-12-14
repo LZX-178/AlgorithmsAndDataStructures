@@ -20,6 +20,9 @@ import java.util.HashMap;
  * 含有 2 个 a、2 个 b、1 个 c。是可以拼出 str 的。所以返回 2。
  * 测试
  * https://leetcode.cn/problems/stickers-to-spell-word/
+ *
+ * 待改进 : 选择贴纸时不是至少 减少了 target 的长度,
+ *          而是, 必须包含 target 的首字符,
  */
 public class Code03_StickersToSpellWord {
     // 方法一, 暴力递归

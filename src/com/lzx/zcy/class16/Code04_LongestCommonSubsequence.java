@@ -8,7 +8,8 @@ import java.util.Arrays;
 /**
  * @author LZX
  * @code @create 2022-11-18 12:10:25
- * 给定两个字符串text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。
+ * 给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。
+ * 如果不存在 公共子序列 ，返回 0 。
  * 一个字符串的子序列是指这样一个新的字符串：
  * 它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
  * 例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。
@@ -118,14 +119,31 @@ public class Code04_LongestCommonSubsequence {
         for (int i = 0; i < text1.length; i++) {
             int result1 = longestCommonSubsequence1(text1[i], text2[i]);
             int result2 = longestCommonSubsequence2(text1[i], text2[i]);
+            int result3 = longestCommonSubsequence3(text1[i], text2[i]);
             System.out.println("***** " + "longestCommonSubsequence1" + " *****");
             System.out.println("text1[i] = " + text1[i]);
             System.out.println("text2[i] = " + text2[i]);
             System.out.println("result1 = " + result1);
             System.out.println("result2 = " + result2);
-            if (result1 != result2){
+            System.out.println("result3 = " + result3);
+            if (result1 != result2 || result2 != result3){
                 throw new RuntimeException("error");
             }
+        }
+    }
+
+    // 暴力方法
+    public int longestCommonSubsequence3(String s1, String s2) {
+        if (s1 == null || s2 == null || s1.length() == 0 || s2.length() == 0){
+            return 0;
+        }
+        if (s1.charAt(0) == s2.charAt(0)){
+            return 1 + longestCommonSubsequence3(s1.substring(1), s2.substring(1));
+        }else {
+            return Math.max(
+                    longestCommonSubsequence3(s1, s2.substring(1)),
+                    longestCommonSubsequence3(s1.substring(1), s2)
+            );
         }
     }
 }
