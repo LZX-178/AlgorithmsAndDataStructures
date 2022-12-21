@@ -68,7 +68,7 @@ public class Code02_CoinsWayNoLimit {
                 // 1 不使用 index 货币
                 dp[index][rest] = dp[index+1][rest];
 
-                // 2 至少使用一次 index 货币, 相当于 rest-arr[index] 后, 回到情况 1
+                // 2 至少使用一次 index 货币, 相当于 rest-arr[index] 后, 回到原始情况
                 int onceUsedRest = rest-arr[index];
                 if (onceUsedRest >= 0){
                     dp[index][rest] += dp[index][onceUsedRest];
