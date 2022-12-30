@@ -8,6 +8,7 @@ import java.util.Stack;
 /**
  * @author LZX
  * @code @create 2022-12-27 18:03:45
+ * *********************** 待优化 : 哨兵 + 数组实现栈 ***********************
  * 给定一个只包含正数的数组 arr，对于 arr 中任何一个子数组 sub，
  * 计算 aim = (sub累加和) * (sub中的最小值)
  * 求 aim 的最大值 maxAim
