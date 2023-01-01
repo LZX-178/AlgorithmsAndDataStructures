@@ -14,7 +14,7 @@ public class Code03_PrintAllSubSequences {
 	// result12 为无重复的结果
 	public Set<String> result12;
 
-	// 打印一个字串的所有公共子序列
+	// 打印一个字串的所有子序列
 	public void subs1(String s) {
 		if (s.length() == 0){
 			return;
