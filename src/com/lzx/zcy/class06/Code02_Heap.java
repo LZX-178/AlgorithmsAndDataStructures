@@ -63,21 +63,18 @@ public class Code02_Heap {
         // 只需要检验 index 和 它的两个子节点 之间的合法性
         // 从 index 和 它的两个子节点 中选出最大的节点
         private void heapify(int index){
-            int leftChild = (index << 1) | 1;
-            int biggest;
-            while (leftChild <= heapSize - 1) {
-                if (leftChild == heapSize - 1) {
-                    biggest = leftChild;
-                } else {
-                    biggest = heap[leftChild] > heap[leftChild + 1] ? leftChild : leftChild + 1;
+            int max = (index << 1) | 1;
+            while (max <= heapSize - 1) {
+                if (max+1 < heapSize && heap[max] < heap[max+1]){
+                    max++;
                 }
 
-                if (heap[index] >= heap[biggest]) {
+                if (heap[index] >= heap[max]) {
                     break;
                 }
-                swap(index, biggest);
-                index = biggest;
-                leftChild = (index << 1) + 1;
+                swap(index, max);
+                index = max;
+                max = (index << 1) | 1;
             }
         }
 

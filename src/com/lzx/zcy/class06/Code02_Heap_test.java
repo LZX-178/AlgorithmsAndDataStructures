@@ -24,7 +24,7 @@ public class Code02_Heap_test {
         heap.add(0);
         heap.add(7);
         heap.add(0);
-        System.out.println(heap.peek());
+//        System.out.println(heap.peek());
         while (!heap.isEmpty()) {
             System.out.println(heap.poll());
         }

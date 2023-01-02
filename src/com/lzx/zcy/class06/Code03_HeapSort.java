@@ -18,7 +18,10 @@ public class Code03_HeapSort {
 //            heapInsert(arr, i);
 //        }
         // 方法二, 将数组看成一个堆, 自底向上调整至合法  O( n )
-        for (int i = arr.length - 1; i >= 0; i--) {
+        // 只需要从第一个 非叶子节点开始即
+        //      2i+1 <= len-1
+        // 解得   i <= (len-2) / 2
+        for (int i = (arr.length-2)>>1; i >= 0; i--) {
             heapify(arr, arr.length, i);
         }
 
@@ -44,21 +47,17 @@ public class Code03_HeapSort {
     // 只需要检验 index 和 它的两个子节点 之间的合法性
     // 从 index 和 它的两个子节点 中选出最大的节点
     private void heapify(int[] heap, int heapSize, int index){
-        int leftChild = (index << 1) | 1;
-        int biggest;
-        while (leftChild <= heapSize - 1) {
-            if (leftChild == heapSize - 1) {
-                biggest = leftChild;
-            } else {
-                biggest = heap[leftChild] > heap[leftChild + 1] ? leftChild : leftChild + 1;
+        int max = (index << 1) | 1;
+        while (max <= heapSize - 1) {
+            if (max+1 < heapSize && heap[max] < heap[max+1]){
+                max++;
             }
-
-            if (heap[index] >= heap[biggest]) {
+            if (heap[index] >= heap[max]) {
                 break;
             }
-            ArrayUtils.swap(heap, index, biggest);
-            index = biggest;
-            leftChild = (index << 1) + 1;
+            ArrayUtils.swap(heap, index, max);
+            index = max;
+            max = (index << 1) | 1;
         }
     }
 }

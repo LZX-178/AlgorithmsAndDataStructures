@@ -43,6 +43,8 @@ public class Code03_HeapSort_test {
             Arrays.sort(array2);
 
             if (!ArrayUtils.IntArrayIsEqual(array1, array2)){
+                System.out.println("Arrays.toString(array1) = " + Arrays.toString(array1));
+                System.out.println("Arrays.toString(array2) = " + Arrays.toString(array2));
                 throw new RuntimeException("error");
             }
         }
